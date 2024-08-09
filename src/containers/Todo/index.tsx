@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddTodo from "./AddTodo";
-import { list } from "./data";
+import list from "./data";
 import TodoList from "./TodoList";
 
 const Todo = () => {

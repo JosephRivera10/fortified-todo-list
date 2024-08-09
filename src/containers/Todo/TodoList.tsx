@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import TodoItem from "./TodoItem";
 
 interface Todo {
   id: string;
   text: string;
   completed: boolean;
 }
+
 interface Props {
   todos: Todo[];
   onToggleComplete: (id: string) => void;
@@ -20,56 +22,22 @@ const TodoList = ({
   onUpdateText,
   showFirstItem,
 }: Props) => {
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editingText, setEditingText] = useState<string>("");
+  // Conditionally remove the first item if showFirstItem is false
+  const visibleTodos = showFirstItem ? todos.slice(1) : todos;
 
-  const handleEditClick = (item: Todo) => {
-    setEditingId(item.id);
-    setEditingText(item.text);
-  };
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditingText(e.target.value);
-  };
-
-  const handleSave = (id: string) => {
-    onUpdateText(id, editingText);
-    setEditingId(null);
-  };
-
-  const renderTodoItem = (item: Todo) => (
-    <li key={item.id}>
-      {editingId === item.id ? (
-        <input
-          type="text"
-          value={editingText}
-          onChange={handleTextChange}
-          onBlur={() => handleSave(item.id)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSave(item.id);
-          }}
-          autoFocus
+  return (
+    <ul>
+      {visibleTodos.map((item) => (
+        <TodoItem
+          key={item.id}
+          item={item}
+          onToggleComplete={onToggleComplete}
+          onDelete={onDelete}
+          onUpdateText={onUpdateText}
         />
-      ) : (
-        <span
-          style={{
-            textDecoration: item.completed ? "line-through" : "none",
-          }}
-        >
-          {item.text}
-        </span>
-      )}
-      <button onClick={() => onToggleComplete(item.id)}>
-        {item.completed ? "Undo" : "Completed"}
-      </button>
-      <button onClick={() => onDelete(item.id)}>Delete</button>
-      <button onClick={() => handleEditClick(item)}>Edit</button>
-    </li>
+      ))}
+    </ul>
   );
-
-  const todosToRender = showFirstItem ? todos : todos.slice(1);
-
-  return <div>{todosToRender.map(renderTodoItem)}</div>;
 };
 
 export default TodoList;

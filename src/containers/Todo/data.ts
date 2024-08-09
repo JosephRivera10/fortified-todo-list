@@ -1,4 +1,4 @@
-export const list = [
+const list = [
     {
       id: '1',
       text: "first item",
@@ -16,9 +16,4 @@ export const list = [
     },
   ];
 
-export const user = {
-  name: 'Joe',
-  id: '1',
-  permissions: 'admin'
-}
-  
+  export default list;

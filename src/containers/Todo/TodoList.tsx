@@ -12,7 +12,7 @@ interface Props {
   onToggleComplete: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdateText: (id: string, newText: string) => void;
-  showFirstItem: boolean;
+  hideFirstItem: boolean;
 }
 
 const TodoList = ({
@@ -20,10 +20,10 @@ const TodoList = ({
   onToggleComplete,
   onDelete,
   onUpdateText,
-  showFirstItem,
+  hideFirstItem,
 }: Props) => {
-  // Conditionally remove the first item if showFirstItem is false
-  const visibleTodos = showFirstItem ? todos.slice(1) : todos;
+  // Conditionally remove the first item if hideFirstItem is true
+  const visibleTodos = hideFirstItem ? todos.slice(1) : todos;
 
   return (
     <ul>

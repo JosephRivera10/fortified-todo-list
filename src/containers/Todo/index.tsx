@@ -43,7 +43,7 @@ const Todo = () => {
         onToggleComplete={(id) => handleToggleComplete(id)}
         onDelete={(id) => handleDelete(id)}
         onUpdateText={(id, newText) => handleUpdateText(id, newText)}
-        showFirstItem={isAdmin}
+        hideFirstItem={isAdmin}
       />
     </div>
   );
